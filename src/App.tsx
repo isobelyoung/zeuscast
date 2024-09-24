@@ -8,6 +8,7 @@ import { mockServer } from './mockServer/server'
 function App() {
   mockServer();
 
+  // temp fetch function - update when ready for functionality
   const getData = async () => {
     const res = await axios('/api/users');
     console.log(res.data);
