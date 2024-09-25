@@ -5,7 +5,8 @@ interface Paths {
 }
 
 export default {
-    INDEX: `/users`,
-    NEW_USER: `/users/new`,
+    INDEX: ``,
+    USERS: `/users`,
+    NEW_USER: `/new`,
     // edit, delete route to be added with :id params
 } as Paths;
