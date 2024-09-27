@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import paths from './paths';
 
 const UsersPage = lazy(() => import('../pages/Users'));
+const HomePage = lazy(() => import('../pages/Home'));
 
 interface Routes {
     path: string;
@@ -12,6 +13,7 @@ interface Routes {
 const error = <div>Error</div>;
 
 const getRouteElement = (Component: React.ElementType): React.ReactNode => (
+    // potentially abstract suspense wrapper
     <Suspense fallback={<div>Loading</div>}>
         <Component />
     </Suspense>
@@ -20,7 +22,7 @@ const getRouteElement = (Component: React.ElementType): React.ReactNode => (
 const routes: any[] = [
     {
         path: paths.INDEX,
-        element: getRouteElement(UsersPage),
+        element: getRouteElement(HomePage),
     },
     {
         path: paths.USERS,
