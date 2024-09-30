@@ -1,8 +1,12 @@
+import { Button } from '@mui/material';
 import CustomButton from '../../components/CustomButton';
+import { useNavigate } from "react-router-dom";
 import { HOME_PAGE } from '../../constants';
 import Container from '@mui/material/Container';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <div className='middle-child'>
             <Container maxWidth='xs'>
@@ -27,11 +31,16 @@ const Home = () => {
                         .
                     </p>
                 </div>
-                <CustomButton
-                    text={HOME_PAGE.BUTTON}
-                    onClick={() => console.log('Button clicked')}
-                    width='100%'
-                />
+                <Button
+                    variant='contained'
+                    color='primary'
+                    className='w-100'
+                    onClick={() => {
+                        navigate('users/')
+                    }}
+                >
+                    {HOME_PAGE.BUTTON}
+                </Button>
             </Container>
         </div>
     );

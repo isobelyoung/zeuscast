@@ -25,4 +25,9 @@ export const HOME_PAGE = {
         TEXT: 'LinkedIn',
         HREF: 'linkedin.com/in/isobel-h-young/',
     },
+};
+
+export const USERS_PAGE = {
+    HEADING: 'Users',
+    BUTTON_ADD_USER: 'Add user',
 }

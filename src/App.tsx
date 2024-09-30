@@ -1,32 +1,40 @@
-import { Children, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import axios from 'axios'
-import { mockServer } from './mockServer/server'
-import { Outlet } from 'react-router-dom'
+import { Children, useState, useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { setUsers } from './store/reducers/usersReducer';
+import './App.css';
+import axios from 'axios';
+import { mockServer } from './mockServer/server';
+import { Outlet } from 'react-router-dom';
 import './assets/CanvaSansDisplay-Medium.ttf';
 import './assets/CanvaSansDisplay-Regular.ttf';
 
 type AppProps = {
-  children: React.ReactNode | React.ReactNode[]
-}
+    children: React.ReactNode | React.ReactNode[];
+};
 
 export default function App({ children }: AppProps) {
-  mockServer();
+    // const dispatch = useDispatch();
+    mockServer();
 
-  // temp fetch function - update when ready for functionality
-  const getData = async () => {
-    const res = await axios('/api/users');
-    console.log(res.data);
-  }
+    // temp fetch function - update when ready for functionality
+    const getData = async () => {
+        const res = await axios('/api/users');
+        // dispatch(setUsers(res.data.users));
+        console.log(res.data.users);
 
-  getData();
+    };
 
-  return (
-    // if bigger app, would add <header> tag for consistency across pages
-    <main>
-      {children}
-    </main>
-  )
+    // useEffect(() => {
+    //     document.addEventListener('click', (e: any) => console.log(e));
+
+    //     return () =>
+    //         document.removeEventListener('click', (e: any) => console.log(e));
+    // });
+
+    getData();
+
+    return (
+        // if bigger app, would add <header> tag for consistency across pages
+        <main>{children}</main>
+    );
 }
