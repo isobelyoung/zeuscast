@@ -42,13 +42,22 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a !important;
+  /* background-color: #1a1a1a !important; */
   cursor: pointer;
   transition: border-color 0.25s;
+  text-transform: none !important;
 }
-button:hover {
+
+/* this would be better done with theme, but doing a more simple solution in the interests of time */
+.custom-button-filled-dark {
+  background-color: #1a1a1a !important;
+  color: white !important;
+}
+
+/* button:hover {
   border-color: #646cff;
-}
+} */
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

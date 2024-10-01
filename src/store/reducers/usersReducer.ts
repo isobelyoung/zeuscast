@@ -2,11 +2,11 @@ import { Gender, UserType } from '../../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UsersState { 
-    users: UserType[]
+    userDetails: UserType[]
 }
 
 const INITIAL_STATE: UsersState = {
-    users: []
+    userDetails: []
 };
 
 export const usersReducer = createSlice({
@@ -14,7 +14,7 @@ export const usersReducer = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         setUsers: (state, action: PayloadAction<UserType[]>) => {
-            state.users = action.payload;
+            state.userDetails = action.payload;
         }
     }
 })

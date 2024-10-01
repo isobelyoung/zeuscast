@@ -30,4 +30,12 @@ export const HOME_PAGE = {
 export const USERS_PAGE = {
     HEADING: 'Users',
     BUTTON_ADD_USER: 'Add user',
+    BUTTON_EDIT: 'Edit',
+    TABLE_COL_HEADINGS: [
+        'Gender',
+        'First name',
+        'Last name',
+        'Age',
+        '',
+    ],
 }

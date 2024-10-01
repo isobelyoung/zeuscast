@@ -1,8 +1,8 @@
 export enum Gender {
-    Female = 'female',
-    Male = 'male',
-    Other = 'other',
-    Undisclosed = 'undisclosed'
+    Female = 'Female',
+    Male = 'Male',
+    Other = 'Other',
+    Undisclosed = 'Undisclosed'
 };
 
 export interface UserType {
