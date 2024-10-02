@@ -4,12 +4,16 @@ import paths from './paths';
 
 const UsersPage = lazy(() => import('../pages/Users'));
 const HomePage = lazy(() => import('../pages/Home'));
+const AddUser = lazy(() => import('../components/Forms/AddUser'));
+const EditUser = lazy(() => import('../components/Forms/EditUser'));
+const DeleteUser = lazy(() => import('../components/Forms/DeleteUser'));
 
 interface Routes {
     path: string;
     element: React.ElementType;
 }
 
+// ideal future state: proper error handling and rendering of loading states
 const error = <div>Error</div>;
 
 const getRouteElement = (Component: React.ElementType): React.ReactNode => (
@@ -28,12 +32,19 @@ const routes: any[] = [
         path: paths.USERS,
         element: getRouteElement(UsersPage),
         errorElement: error,
-        // nested routes that render child component in Outlet
         children: [
             {
                 path: `${paths.USERS}${paths.NEW_USER}`,
-                // element: 
-            }
+                element: getRouteElement(AddUser)
+            },
+            {
+                path: `${paths.USERS}${paths.EDIT_USER}/:id`,
+                element: getRouteElement(EditUser)
+            },
+            {
+                path: `${paths.USERS}${paths.DELETE_USER}/:id`,
+                element: getRouteElement(DeleteUser)
+            },
         ]
     },
 ]

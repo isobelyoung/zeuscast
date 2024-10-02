@@ -8,5 +8,6 @@ export default {
     INDEX: ``,
     USERS: `/users`,
     NEW_USER: `/new`,
-    // edit, delete route to be added with :id params
+    EDIT_USER: `/edit`,
+    DELETE_USER: `/delete`
 } as Paths;

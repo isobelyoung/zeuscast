@@ -15,8 +15,11 @@ export const usersReducer = createSlice({
     reducers: {
         setUsers: (state, action: PayloadAction<UserType[]>) => {
             state.userDetails = action.payload;
+        },
+        addUser: (state, action: PayloadAction<UserType>) => {
+            state.userDetails.push(action.payload);
         }
     }
 })
 
-export const { setUsers } = usersReducer.actions;
+export const { setUsers, addUser } = usersReducer.actions;
