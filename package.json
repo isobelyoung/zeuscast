@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "npx playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e-ui": "playwright test --ui",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@playwright/experimental-ct-react": "^1.47.2",
     "@playwright/test": "^1.47.2",
     "@types/node": "^22.6.1",
     "@types/react": "^18.3.3",
@@ -40,8 +43,11 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "miragejs": "^0.2.0-alpha.3",
+    "nyc": "^17.1.0",
+    "playwright-test-coverage": "^1.2.12",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-istanbul": "^6.0.2"
   }
 }
