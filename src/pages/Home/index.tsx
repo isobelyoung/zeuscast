@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <div className='middle-child'>
             <Container maxWidth='xs'>
-                <div className='centered-text pb-1'>
+                <div className='centered-text'>
                     <h1>{HOME_PAGE.HEADING}</h1>
                     <p>
                         {HOME_PAGE.PARA_ONE}
@@ -33,7 +33,8 @@ const Home = () => {
                 </div>
                 <Button
                     variant='contained'
-                    className='custom-button-filled-dark w-100'
+                    color='primary'
+                    className='w-100'
                     onClick={() => {
                         navigate('users/')
                     }}
