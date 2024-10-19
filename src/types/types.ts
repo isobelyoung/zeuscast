@@ -6,7 +6,7 @@ export enum Gender {
 };
 
 export interface UserType {
-    id?: string,
+    id: string,
     gender: Gender,
     firstName: string,
     lastName: string,

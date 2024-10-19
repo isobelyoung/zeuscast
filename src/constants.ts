@@ -39,30 +39,3 @@ export const USERS_PAGE = {
         '',
     ],
 }
-
-export const USER_FORM = {
-    HEADING: {
-        ADD: 'Add user',
-        EDIT: 'Edit user',
-        DELETE: 'Are you sure you want to delete user?',
-    },
-    FIELDS: {
-        GENDER: 'Gender',
-        FIRST_NAME: 'First name',
-        LAST_NAME: 'Last name',
-        AGE: 'Age',
-    },
-    ERROR: {
-        REQUIRED: 'Required',
-        NAME_MIN_LENGTH: 'name must be more than 5 characters',
-        NAME_MAX_LENGTH: 'name cannot exceed 20 characters',
-        AGE_MIN: 'Age must be higher than 18',
-        AGE_MAX: 'Age cannot exceed ',
-    },
-    BUTTON: {
-        CANCEL: 'Cancel',
-        ADD: 'Add',
-        SAVE: 'Save',
-        DELETE: 'Delete',
-    }
-}

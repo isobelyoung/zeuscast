@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { setUsers } from '../../store/reducers/usersReducer';
 import { USERS_PAGE } from '../../constants';
-import {
-    Button,
-    IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-} from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import Table from '@mui/material/Table';
@@ -21,16 +14,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './index.css';
-import paths from '../../routes/paths';
 import axios from 'axios';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { setIsModalOpen } from '../../store/reducers/appReducer';
 
 const Users = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { userDetails } = useSelector((state: RootState) => state.users);
-    const { isModalOpen } = useSelector((state: RootState) => state.app);
 
     const getData = async () => {
         const res = await axios('/api/users');
@@ -51,8 +39,7 @@ const Users = () => {
                     startIcon={<AddIcon />}
                     className='custom-button-filled-dark'
                     onClick={() => {
-                        dispatch(setIsModalOpen(true));
-                        navigate('new');
+                        alert('clicked');
                     }}
                 >
                     {USERS_PAGE.BUTTON_ADD_USER}
@@ -66,8 +53,6 @@ const Users = () => {
                                 <TableCell key={heading}>{heading}</TableCell>
                             ))}
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
                         {userDetails.map((user) => (
                             <TableRow key={user.id}>
                                 <TableCell key={`${user.id}-${user.gender}`}>
@@ -82,43 +67,24 @@ const Users = () => {
                                 <TableCell key={`${user.id}-${user.age}`}>
                                     {user.age}
                                 </TableCell>
-                                <TableCell
-                                    key={`${user.id}-edit`}
-                                    style={{ textAlign: 'right' }}
-                                >
+                                <TableCell key={`${user.id}-edit`} style={{ textAlign: 'right' }}>
                                     <Button
                                         variant='outlined'
                                         color='inherit'
-                                        onClick={() => {
-                                            dispatch(setIsModalOpen(true));
-                                            navigate(`edit/${user.id}`);
-                                        }}
                                     >
                                         {USERS_PAGE.BUTTON_EDIT}
                                     </Button>
                                     <IconButton
                                         aria-label={`delete-${user.id}`}
-                                        onClick={() => {
-                                            dispatch(setIsModalOpen(true));
-                                            navigate(`delete/${user.id}`);
-                                        }}
                                     >
                                         <DeleteOutlinedIcon fontSize='inherit' />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
                         ))}
-                    </TableBody>
+                    </TableHead>
                 </Table>
             </TableContainer>
-            <Dialog
-                open={isModalOpen}
-                fullWidth
-                maxWidth='sm'
-                className='user-form-dialog'
-            >
-                <Outlet />
-            </Dialog>
         </div>
     );
 };
