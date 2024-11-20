@@ -1,16 +1,17 @@
-import { lazy, Suspense } from 'react';
+import React, { lazy, ReactNode, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import paths from './paths';
 
-const UsersPage = lazy(() => import('../pages/Users'));
 const HomePage = lazy(() => import('../pages/Home'));
 
-interface Routes {
+interface IRoutes {
     path: string;
-    element: React.ElementType;
+    element?: React.ElementType | React.ReactNode;
+    errorElement?: React.ElementType | JSX.Element;
+    children?: IRoutes[];
 }
 
-const error = <div>Error</div>;
+const error: JSX.Element = <div>Error</div>;
 
 const getRouteElement = (Component: React.ElementType): React.ReactNode => (
     // potentially abstract suspense wrapper
@@ -24,18 +25,17 @@ const routes: any[] = [
         path: paths.INDEX,
         element: getRouteElement(HomePage),
     },
-    {
-        path: paths.USERS,
-        element: getRouteElement(UsersPage),
-        errorElement: error,
-        // nested routes that render child component in Outlet
-        children: [
-            {
-                path: `${paths.USERS}${paths.NEW_USER}`,
-                // element: 
-            }
-        ]
-    },
+    // {
+    //     path: paths.USERS,
+    //     element: getRouteElement(UsersPage),
+    //     errorElement: error,
+    //     // nested routes that render child component in Outlet
+    //     children: [
+    //         {
+    //             path: `${paths.USERS}${paths.NEW_USER}`,
+    //         }
+    //     ]
+    // },
 ]
 
 export default createBrowserRouter(routes);

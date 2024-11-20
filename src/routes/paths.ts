@@ -1,4 +1,4 @@
-import { BASE_URL } from '../constants';
+import { BASE_URL } from '../constants/copy';
 
 interface Paths {
     [key: string]: string;
@@ -6,7 +6,6 @@ interface Paths {
 
 export default {
     INDEX: ``,
-    USERS: `/users`,
-    NEW_USER: `/new`,
-    // edit, delete route to be added with :id params
+    // USERS: `/users`,
+    // NEW_USER: `/new`,
 } as Paths;

@@ -1,1 +1,1 @@
-export * as CustomButton from './CustomButton';
+// export * as name from './name';

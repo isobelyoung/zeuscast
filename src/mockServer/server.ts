@@ -1,11 +1,8 @@
 import { createServer, Model } from 'miragejs';
-import { UserType } from '../types';
 import { ModelDefinition } from 'miragejs/-types';
-import { mockUsers } from './mockData';
+// import { mockUsers } from './mockData';
 
-const UserModel: ModelDefinition<UserType> = Model.extend({});
-// type AppRegistry = Registry<{ user: typeof UserModel }, {}>;
-// type AppSchema = Schema<AppRegistry>;
+const UserModel: ModelDefinition<any> = Model.extend({});
 
 export function mockServer() {
     
@@ -24,11 +21,11 @@ export function mockServer() {
             this.get('/users')
         },
 
-        seeds(server) {
-            mockUsers.forEach((user) => {
-                server.create('user', user)
-            })
-        }
+        // seeds(server) {
+        //     mockUsers.forEach((user) => {
+        //         server.create('user', user)
+        //     })
+        // }
     });
 
     return server;
