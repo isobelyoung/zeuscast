@@ -1,0 +1,35 @@
+.card {
+    text-align: center;
+    min-width: min-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 150px;
+    flex-basis: auto;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid rgb(139, 139, 151, 0.6);
+    &-label {
+        color: grey;
+        font-size: 0.7rem;
+        margin-bottom: 0;
+    }
+
+    &-attribute {
+        font-weight: 600;
+        margin-top: 0;
+    }
+
+    &-image {
+        max-width: 100%;
+        width: 100%;
+        justify-items: center;
+        align-items: flex-start;
+        padding: 2rem 1rem;
+        margin-bottom: 1rem;
+
+        &--img {
+            width: 100%;
+        }
+    }
+}

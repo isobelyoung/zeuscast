@@ -9,6 +9,13 @@ if (process.env.NODE_ENV === 'development') {
 // Centralising app copy
 
 export const HOME_PAGE = {
-    HEADING: 'Hey there!',
-    TEXT: '',
+    HEADING: 'ZeusCast',
+    TEXT: 'Your go-to guide for tracking skies, seasons, and everything in between',
 };
+
+export const FORECAST_CARD = {
+    LABEL_ONE: 'Date',
+    LABEL_TWO: 'Description',
+    LABEL_THREE: 'Temperature',
+    LABEL_FOUR: 'Wind Speed'
+}

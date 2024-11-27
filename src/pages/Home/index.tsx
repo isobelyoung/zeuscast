@@ -5,12 +5,15 @@ import {
     Select,
     TextField,
     Autocomplete,
+    Grid2,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { HOME_PAGE } from '../../constants/copy';
 import { useState } from 'react';
 import axios from 'axios';
 import { fetchWeatherApi } from 'openmeteo';
+import ForecastCard from '../../components/ForecastCard';
+import ForecastGrid from '../../components/ForecastGrid';
+import './index.scss';
 
 type LocationType = {
     id: number;
@@ -24,14 +27,14 @@ type ForecastDataType = {
     weatherCode: number;
     maxTemp: string;
     minTemp: string;
-}
+    windSpeed: string;
+};
 
 const Home = () => {
-
     const [selectedLocation, setSelectedLocation] = useState<LocationType>();
     const [locationOptions, setLocationOptions] = useState([]);
     // const [forecastData, setForecastData] = useState([]);
-    const forecastData: ForecastDataType[] = [];
+    const [forecastData, setForecastData] = useState<ForecastDataType[]>([]);
 
     const getLocations = async (searchString: string) => {
         let locations = [];
@@ -75,6 +78,7 @@ const Home = () => {
                         'weather_code',
                         'temperature_2m_max',
                         'temperature_2m_min',
+                        'wind_speed_10m_max',
                     ],
                     timezone: 'auto',
                 }
@@ -84,8 +88,8 @@ const Home = () => {
             console.log(error);
         }
 
+        const data = [];
         if (response) {
-
             // Formatting the API response: code lifted from the Open-Meteo documentation
 
             // Attributes for timezone and location
@@ -103,44 +107,54 @@ const Home = () => {
                     weatherCode: daily.variables(0)!.valuesArray()!,
                     temperature2mMax: daily.variables(1)!.valuesArray()!,
                     temperature2mMin: daily.variables(2)!.valuesArray()!,
+                    windSpeed10mMax: daily.variables(3)!.valuesArray()!,
                 },
             };
 
             for (let i = 0; i < weatherData.daily.time.length; i++) {
-                forecastData.push({
+                data.push({
                     day: weatherData.daily.time[i].toLocaleDateString(),
                     weatherCode: weatherData.daily.weatherCode[i],
                     maxTemp: weatherData.daily.temperature2mMax[i].toFixed(2),
                     minTemp: weatherData.daily.temperature2mMin[i].toFixed(2),
-                })
+                    windSpeed: weatherData.daily.windSpeed10mMax[i].toFixed(2),
+                });
             }
         }
-        console.log(forecastData);
+        setForecastData(data);
     };
 
     return (
         <div>
             <h1>{HOME_PAGE.HEADING}</h1>
-            <FormControl>
+            <h2>{HOME_PAGE.TEXT}</h2>
+            <FormControl className='form'>
                 <Autocomplete
                     options={locationOptions}
                     renderInput={(params) => (
                         <TextField {...params} label='Search Location' />
                     )}
-                    sx={{ width: 400 }}
                     onChange={(event: any, newValue: any) => {
-                        setSelectedLocation(newValue);
-                        selectedLocation &&
-                            getForecast(
-                                selectedLocation.lat,
-                                selectedLocation.long
-                            );
+                        getForecast(newValue.lat, newValue.long);
                     }}
                     onInputChange={(event: any, newInputValue: string) => {
                         getLocations(newInputValue);
                     }}
+                    className='search-box'
                 />
             </FormControl>
+            <ForecastGrid>
+                {forecastData &&
+                    forecastData.map((day: any, ind: number) => (
+                        <ForecastCard
+                            date={day.day}
+                            maxTemp={day.maxTemp}
+                            minTemp={day.minTemp}
+                            windSpeed={day.windSpeed}
+                            weatherCode={day.weatherCode}
+                        />
+                    ))}
+            </ForecastGrid>
         </div>
     );
 };
