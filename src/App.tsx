@@ -1,5 +1,5 @@
 import { Children, useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import { mockServer } from './mockServer/server';
 import './assets/CanvaSansDisplay-Medium.ttf';
 import './assets/CanvaSansDisplay-Regular.ttf';
@@ -9,7 +9,7 @@ type AppProps = {
 };
 
 export default function App({ children }: AppProps) {
-    mockServer();
+    // mockServer();
     return (
         // if bigger app, would add <header> tag for consistency across pages
         <main>{children}</main>
