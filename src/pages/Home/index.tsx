@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { HOME_PAGE } from '../../constants/copy';
 import { useState } from 'react';
 import axios from 'axios';
+import { fetchWeatherApi } from 'openmeteo';
 
 type LocationType = {
     id: number;
@@ -18,17 +19,19 @@ type LocationType = {
     long: number;
 };
 
+type ForecastDataType = {
+    day: string;
+    weatherCode: number;
+    maxTemp: string;
+    minTemp: string;
+}
+
 const Home = () => {
-    const navigate = useNavigate();
-    const handleChange = (e: any) => {
-        console.log(e.target.value);
-    };
 
     const [selectedLocation, setSelectedLocation] = useState<LocationType>();
     const [locationOptions, setLocationOptions] = useState([]);
-
-    const [value, setValue] = useState(locationOptions[0]);
-    const [inputValue, setInputValue] = useState('');
+    // const [forecastData, setForecastData] = useState([]);
+    const forecastData: ForecastDataType[] = [];
 
     const getLocations = async (searchString: string) => {
         let locations = [];
@@ -40,7 +43,7 @@ const Home = () => {
         } catch (error) {
             console.log(error);
         }
-        let filtered = []
+        let filtered = [];
         filtered = locations.map((city: any, index: number) => {
             return {
                 id: index,
@@ -53,16 +56,67 @@ const Home = () => {
         return filtered;
     };
 
+    // Helper function to form time ranges
+    const range = (start: number, stop: number, step: number) =>
+        Array.from(
+            { length: (stop - start) / step },
+            (_, i) => start + i * step
+        );
+
     const getForecast = async (lat: number, long: number) => {
+        let response;
         try {
-            const res = await axios.get(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m,weather_code`
-            )
-            console.log(res)
+            const data = await fetchWeatherApi(
+                'https://api.open-meteo.com/v1/forecast',
+                {
+                    latitude: lat,
+                    longitude: long,
+                    daily: [
+                        'weather_code',
+                        'temperature_2m_max',
+                        'temperature_2m_min',
+                    ],
+                    timezone: 'auto',
+                }
+            );
+            response = data[0];
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+
+        if (response) {
+
+            // Formatting the API response: code lifted from the Open-Meteo documentation
+
+            // Attributes for timezone and location
+            const utcOffsetSeconds = response.utcOffsetSeconds();
+            const daily = response.daily()!;
+
+            // Note: The order of weather variables in the URL query and the indices below need to match!
+            const weatherData = {
+                daily: {
+                    time: range(
+                        Number(daily.time()),
+                        Number(daily.timeEnd()),
+                        daily.interval()
+                    ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
+                    weatherCode: daily.variables(0)!.valuesArray()!,
+                    temperature2mMax: daily.variables(1)!.valuesArray()!,
+                    temperature2mMin: daily.variables(2)!.valuesArray()!,
+                },
+            };
+
+            for (let i = 0; i < weatherData.daily.time.length; i++) {
+                forecastData.push({
+                    day: weatherData.daily.time[i].toLocaleDateString(),
+                    weatherCode: weatherData.daily.weatherCode[i],
+                    maxTemp: weatherData.daily.temperature2mMax[i].toFixed(2),
+                    minTemp: weatherData.daily.temperature2mMin[i].toFixed(2),
+                })
+            }
+        }
+        console.log(forecastData);
+    };
 
     return (
         <div>
@@ -75,13 +129,14 @@ const Home = () => {
                     )}
                     sx={{ width: 400 }}
                     onChange={(event: any, newValue: any) => {
-                        console.log('selected value', newValue);
-                        getForecast(newValue.lat, newValue.long)
+                        setSelectedLocation(newValue);
+                        selectedLocation &&
+                            getForecast(
+                                selectedLocation.lat,
+                                selectedLocation.long
+                            );
                     }}
-                    onInputChange={(
-                        event: any,
-                        newInputValue: string
-                    ) => {
+                    onInputChange={(event: any, newInputValue: string) => {
                         getLocations(newInputValue);
                     }}
                 />
