@@ -6,6 +6,4 @@ interface Paths {
 
 export default {
     INDEX: ``,
-    // USERS: `/users`,
-    // NEW_USER: `/new`,
 } as Paths;
