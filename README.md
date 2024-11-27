@@ -1,4 +1,4 @@
-*Zeus Cast**
+**Zeus Cast**
 Your go-to guide for tracking skies, seasons, and everything in between.
  
 ![image](https://github.com/user-attachments/assets/3b438535-7a14-4ab8-9783-9a11980b78cf)
