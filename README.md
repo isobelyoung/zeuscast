@@ -4,7 +4,8 @@ Your go-to guide for tracking skies, seasons, and everything in between.
  
 ![image](https://github.com/user-attachments/assets/3b438535-7a14-4ab8-9783-9a11980b78cf)
  
-**Overview**
+**Overview** 
+ 
 This is a sleek and user-friendly application designed to provide accurate and up-to-date weather forecasts, temperature trends, and atmospheric insights. With its playful yet reliable interface, you can stay prepared for anything the elements throw your way. Simply search your desired location, and get the forecast for the next seven days.
 
 **Installation and Setup**
@@ -38,5 +39,6 @@ Optional: Git for version control
  Open your browser and navigate to http://localhost:5173.
 
 
-**Notes from the dev**
+**Notes from the dev** 
+ 
 This application was built under a time crunch, and as such, there may be some liberties taken. While it has been endeavoured to produce a functional and performant app, I applied a pragmatic approach to prioritise key features that were explicitly defined in the requirements. Normally, I would prefer to apply a much more modular approach, but in the interests of speed, there are some functions or components that were grouped together, and appropriate unit testing was not fully built out (there is, however, an example test file included). Enjoy!
